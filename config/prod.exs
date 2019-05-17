@@ -21,16 +21,27 @@ config :logger, level: :info
 # To get SSL working, you will need to add the `https` key
 # to the previous section and set your `:url` port to 443:
 #
-#     config :hello, HelloWeb.Endpoint,
-#       ...
-#       url: [host: "example.com", port: 443],
-#       https: [
-#         :inet6,
-#         port: 443,
-#         cipher_suite: :strong,
-#         keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
-#         certfile: System.get_env("SOME_APP_SSL_CERT_PATH")
-#       ]
+
+config :hello, HelloWeb.Endpoint,
+  http: [port: {:system, "PORT"}],
+  url: [host: "example.com"],
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  https: [
+    port: 4001,
+    cipher_suite: :strong,
+    keyfile: "priv/cert/selfsigned_key.pem",
+    certfile: "priv/cert/selfsigned.pem"
+  ]
+
+  # https: [
+  #   port: 443,
+  #   otp_app: :hello,
+  #   keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
+  #   certfile: System.get_env("SOME_APP_SSL_CERT_PATH"),
+  #   # OPTIONAL Key for intermediate certificates:
+  #   cacertfile: System.get_env("INTERMEDIATE_CERTFILE_PATH")
+  # ]
+
 #
 # The `cipher_suite` is set to `:strong` to support only the
 # latest and more secure SSL ciphers. This means old browsers
@@ -47,7 +58,11 @@ config :logger, level: :info
 #
 #     config :hello, HelloWeb.Endpoint,
 #       force_ssl: [hsts: true]
-#
+
+# To dynamically redirect to the host of the current request,
+# set :host in the :force_ssl configuration to nil.
+config :my_app, MyApp.Endpoint,
+  force_ssl: [rewrite_on: [:x_forwarded_proto], host: nil]
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
 # ## Using releases (Elixir v1.9+)
