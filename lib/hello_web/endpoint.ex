@@ -5,7 +5,7 @@ defmodule HelloWeb.Endpoint do
     websocket: true,
     longpoll: false
 
-  socket "/admin-socket", HelloWeb.AdminSocket
+  # socket "/admin-socket", HelloWeb.AdminSocket
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest

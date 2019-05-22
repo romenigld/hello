@@ -10,18 +10,3 @@ defmodule HelloWeb.Plugs.Locale do
   end
   def call(conn, default), do: assign(conn, :locale, default)
 end
-
-defmodule HelloWeb.Router do
-  use HelloWeb, :router
-
-  pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_flash
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
-    plug HelloWeb.Plugs.Locale, "en"
-  end
-
-  # ...
-end
