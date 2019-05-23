@@ -1,0 +1,2 @@
+I came from assigns: <%= @message %>
+This is the message: <%= message() %>
