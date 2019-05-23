@@ -1,0 +1,13 @@
+<div class="phx-hero">
+  <h1><%= handler_info(@conn) %></h1>
+
+  <h3>Keys for the conn Struct:</h3>
+
+  <!-- <%= for key <- connection_keys(@conn) do %>
+    <%= render("key.html", key: key) %>
+  <% end %> -->
+
+  <%= for key <- connection_keys(@conn) do %>
+    <%= render(HelloWeb.SharedView, "key.html", key: key) %>
+  <% end %>
+</div>

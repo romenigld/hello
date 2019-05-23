@@ -35,4 +35,8 @@ defmodule HelloWeb.PageController do
     # |> put_flash(:error, "Let's pretend we have an error.")
     # |> render("index.html")
   end
+
+  def testing(conn, _params) do
+    render(conn, "testing.html")
+  end
 end
