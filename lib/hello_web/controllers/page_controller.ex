@@ -13,12 +13,12 @@ defmodule HelloWeb.PageController do
   end
 
   def index(conn, _params) do
-    pages = [%{title: "foo"}, %{title: "bar"}]
-    render(conn, "index.json", pages: pages)
+    # pages = [%{title: "foo"}, %{title: "bar"}]
+    # render(conn, "index.json", pages: pages)
 
-    # conn
-    # |> assign(:message, "'Using a new function title() in the layout view!'")
-    # |> render("index.html")
+    conn
+    |> assign(:message, "'Using a new function title() in the layout view!'")
+    |> render("index.html")
 
     # conn
     # |> put_layout("admin.html")
