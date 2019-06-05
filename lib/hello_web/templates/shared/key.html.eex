@@ -1,5 +1,1 @@
- <!-- The way we pass data into a template is by the assigns map,
-      and the way we get the values out of the assigns map is by
-      referencing the keys with a preceding @.
-  @ is actually a macro that translates @key to Map.get(assigns, :key) -->
 <p><%= @key %></p>
