@@ -17,7 +17,7 @@ defmodule HelloWeb.Router do
   scope "/api", HelloWeb do
     pipe_through :api
 
-    resources "/reviews", ReviewController
+    # resources "/reviews", ReviewController
   end
 
   scope "/", HelloWeb do
@@ -29,6 +29,9 @@ defmodule HelloWeb.Router do
     get "/testing", PageController, :testing
 
     resources "/users", UserController
+    resources "/sessions", SessionController, only: [:new, :create, :delete],
+                                              singleton: true
+
     # resources "/users", UserController do
     #   resources "/posts", PostController
     # end
@@ -43,6 +46,26 @@ defmodule HelloWeb.Router do
      get "/redirect_test", HelloController, :redirect_test, as: :redirect_test
    end
 
+   defp authenticate_user(conn, _) do
+     case get_session(conn, :user_id) do
+       nil ->
+         conn
+         |> Phoenix.Controller.put_flash(:error, "Login required")
+         |> Phoenix.Controller.redirect(to: "/")
+         |> halt()
+
+       user_id ->
+         assign(conn, :current_user, Hello.Accounts.get_user!(user_id))
+
+      end
+    end
+
+    scope "/cms", HelloWeb.CMS, as: :cms do
+      pipe_through [:browser, :authenticate_user]
+
+      resources "/pages", PageController
+    end
+    
   # scope "/" do
   #   pipe_through [:authenticate_user, :ensure_admin]
   #   forward "/jobs", BackgroundJob.Plug, name: "Hello Phoenix"

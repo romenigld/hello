@@ -5,7 +5,7 @@ defmodule Hello.Accounts.Credential do
 
   schema "credentials" do
     field :email, :string
-    belongs_to :user, User
+     belongs_to :user, User
 
     timestamps()
   end
