@@ -1,6 +1,7 @@
 defmodule Hello.UserRegistration do
   alias Ecto.Multi
   alias Hello.{Accounts, CMS}
+  alias Hello.Repo
 
   def register_user(params) do
     Multi.new()
